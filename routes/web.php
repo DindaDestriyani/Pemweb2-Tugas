@@ -3,44 +3,33 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-// Halaman Utama
-Route::get('/', 'HomeController@index')->name('home');
-
-// Rute untuk Produk
-Route::prefix('products')->group(function () {
-    Route::get('/', 'ProductController@index')->name('products.index'); // Menampilkan semua produk
-    Route::get('/{id}', 'ProductController@show')->name('products.show'); // Menampilkan detail produk
-    Route::post('/', 'ProductController@store')->name('products.store'); // Menambahkan produk baru (admin)
-    Route::put('/{id}', 'ProductController@update')->name('products.update'); // Memperbarui produk (admin)
-    Route::delete('/{id}', 'ProductController@destroy')->name('products.destroy'); // Menghapus produk (admin)
+Route::get('/beranda', function(){
+    return 'Welcome to E-Commerce';
 });
 
-// Rute untuk Keranjang Belanja
-Route::prefix('cart')->group(function () {
-    Route::get('/', 'CartController@index')->name('cart.index'); // Menampilkan keranjang belanja
-    Route::post('/add/{productId}', 'CartController@add')->name('cart.add'); // Menambahkan produk ke keranjang
-    Route::put('/update/{productId}', 'CartController@update')->name('cart.update'); // Memperbarui jumlah produk di keranjang
-    Route::delete('/remove/{productId}', 'CartController@remove')->name('cart.remove'); // Menghapus produk dari keranjang
+Route::get('/daftar-produk', function(){
+    return 'Daftar semua produk';
 });
 
-// Rute untuk Pemesanan
-Route::prefix('checkout')->group(function () {
-    Route::get('/', 'CheckoutController@index')->name('checkout.index'); // Menampilkan halaman checkout
-    Route::post('/', 'CheckoutController@processOrder')->name('checkout.process'); // Memproses pesanan
+Route::get('/detail-belanja', function(){
+    return 'Detail belanja';
 });
 
-// Rute untuk Akun Pengguna
-Route::prefix('account')->group(function () {
-    Route::get('/login', 'Auth\LoginController@showLoginForm')->name('account.login'); // Halaman login
-    Route::post('/login', 'Auth\LoginController@login')->name('account.login.submit'); // Proses login
-    Route::post('/logout', 'Auth\LoginController@logout')->name('account.logout'); // Proses logout
-
-    Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('account.register'); // Halaman pendaftaran
-    Route::post('/register', 'Auth\RegisterController@register')->name('account.register.submit'); // Proses pendaftaran
-
-    Route::get('/profile', 'AccountController@profile')->name('account.profile'); // Halaman profil pengguna
+Route::get('/keranjang', function(){
+    return 'Keranjang belanja pengguna';
 });
 
+Route::get('/cart', function(){
+    return 'Menambahkan produk ke keranjang belanja';
+});
+
+Route::get('/pembayaran', function(){
+    return 'Halaman pembayaran';
+});
+
+Route::get('/checkout', function(){
+    return 'Checkout berhasil';
+});
 
 Route::get('/', function () {
     return view('welcome');
