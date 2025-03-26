@@ -3,37 +3,59 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/beranda', function(){
-    return 'Welcome to E-Commerce';
+Route::get('/', function(){
+    return view('web.homepage');
+});
+Route::get('products', function(){
+    return view('web.products');
+});
+Route::get('product/{slug}', function($slug){
+    return "halaman single product - ".$slug;
+});
+Route::get('categories', function(){
+    return view('web.categories');
+});
+Route::get('category/{slug}', function($slug){
+    return "halaman single category - ".$slug;
+});
+Route::get('cart', function(){
+    return "halaman cart";
+});
+Route::get('checkout', function(){
+    return "halaman checkout";
 });
 
-Route::get('/daftar-produk', function(){
-    return 'Daftar semua produk';
-});
+// Route::get('/beranda', function(){
+//     return 'Welcome to E-Commerce';
+// });
 
-Route::get('/detail-belanja', function(){
-    return 'Detail belanja';
-});
+// Route::get('/daftar-produk', function(){
+//     return 'Daftar semua produk';
+// });
 
-Route::get('/keranjang', function(){
-    return 'Keranjang belanja pengguna';
-});
+// Route::get('/detail-belanja', function(){
+//     return 'Detail belanja';
+// });
 
-Route::get('/cart', function(){
-    return 'Menambahkan produk ke keranjang belanja';
-});
+// Route::get('/keranjang', function(){
+//     return 'Keranjang belanja pengguna';
+// });
 
-Route::get('/pembayaran', function(){
-    return 'Halaman pembayaran';
-});
+// Route::get('/cart', function(){
+//     return 'Menambahkan produk ke keranjang belanja';
+// });
 
-Route::get('/checkout', function(){
-    return 'Checkout berhasil';
-});
+// Route::get('/pembayaran', function(){
+//     return 'Halaman pembayaran';
+// });
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/checkout', function(){
+//     return 'Checkout berhasil';
+// });
+
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
