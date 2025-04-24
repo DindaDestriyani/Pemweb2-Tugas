@@ -2,13 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\HomepageController;
 
-Route::get('/', function(){
-    return view('web.homepage');
-});
-Route::get('products', function(){
-    return view('web.products');
-});
+Route::get('/',[HomepageController::class,'index']);
+
+Route::get('products', [HomepageController::class, 'products']);
+    
+// Route::get('/', function(){
+//     return view('web.homepage');
+// });
+// Route::get('products', function(){
+//     return view('web.products');
+// });
 Route::get('product/{slug}', function($slug){
     return "halaman single product - ".$slug;
 });
