@@ -1,49 +1,45 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">E-Commerce</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">>Products</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Categories
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Pria</a></li>
-            <li><a class="dropdown-item" href="#">Wanita</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Anak-Anak</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+<x-layout>
+  <x-slot name="title"> Products</x-slot>
+
+  <div class="container py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 style="font-size: 1.5rem;">Product Kami</h3>
+      <form action="{{ url()->current() }}" method="GET" class="d-flex"
+        style="max-width: 300px;">
+        <input type="text" name="search" class="form-control me-2"
+          placeholder="Cari produk..." value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary">Cari</button>
       </form>
     </div>
+    <div class="row">
+      @forelse($products as $product)
+      <div class="col-md-3 mb-4">
+        <div class="card product-card h-100 shadow-sm">
+          <img src="{{ $product->image_url ? $product->image_url :
+'https://via.placeholder.com/350x200?text=No+Image' }}" class="card-img-top" alt="{{
+$product->name }}">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ $product->name }}</h5>
+            <p class="card-text text-truncate">{{ $product->description
+}}</p>
+            <div class="mt-auto">
+              <span class="fw-bold text-primary">Rp {{
+number_format($product->price, 0, ',', '.') }}</span>
+              <a href="{{ route('product.show', $product->slug) }}"
+                class="btn btn-outline-primary btn-sm float-end">Lihat Detail</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      @empty
+      <div class="col">
+        <div class="alert alert-info">Belum ada produk pada kategori
+          ini.</div>
+      </div>
+      @endforelse
+      <div class="d-flex justify-content-center w-100 mt-4">
+        {{ $products->links('vendor.pagination.simple-bootstrap-5') }}
+      </div>
+    </div>
   </div>
-</nav>
-    <h1>Halaman Products</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
+</x-layout>

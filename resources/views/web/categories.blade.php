@@ -1,49 +1,35 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">E-Commerce</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">>Products</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Categories
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Pria</a></li>
-            <li><a class="dropdown-item" href="#">Wanita</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Anak-Anak</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+<x-layout>
+  <x-slot name="title"> Categories</x-slot>
+  <div class="container py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 style="font-size: 1.5rem;">Kategori Product</h3>
+    </div>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+      @foreach($categories as $category)
+      <div class="col">
+        <a href="{{ URL::to('/category/'.$category->slug) }}" class="card
+text-decoration-none">
+          <div class="card category-card text-center h-100 py-3 border-0
+shadow-sm">
+            <div class="mx-auto mb-2"
+              style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;bac
+kground:#f8f9fa;border-radius:50%;">
+              <img src="{{ $category->image }}" alt="{{
+$category->name }}" style="width:36px;height:36px;object-fit:contain;">
+            </div>
+            <div class="card-body p-2">
+              <h6 class="card-title mb-1 text-dark">{{ $category->name
+}}</h6>
+              <p class="card-text text-muted small text-truncate">{{
+$category->description }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      @endforeach
+    </div>
+    <div class="d-flex justify-content-center w-100 mt-4">
+      {{ $categories->links('vendor.pagination.simple-bootstrap-5') }}
     </div>
   </div>
-</nav>
-    <h1>Halaman Categories</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
+</x-layout>

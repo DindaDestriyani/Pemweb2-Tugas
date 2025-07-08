@@ -25,4 +25,10 @@ class Product extends Model
     {
         return $this->belongsTo(Categories::class, 'product_category_id');
     }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
 }
